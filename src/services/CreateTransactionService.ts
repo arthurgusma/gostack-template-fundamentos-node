@@ -14,12 +14,12 @@ class CreateTransactionService {
     this.transactionsRepository = transactionsRepository;
   }
 
-  public execute({title, value, type}: Request): Transaction {
+  public execute({ title, value, type }: Request): Transaction {
     const newTransaction = this.transactionsRepository.create({
       title,
       value,
-      type
-    })
+      type,
+    });
     return newTransaction;
 
   }

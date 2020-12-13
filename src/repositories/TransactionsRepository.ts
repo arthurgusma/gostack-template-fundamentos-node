@@ -24,16 +24,35 @@ class TransactionsRepository {
   }
 
   public getBalance(): Balance {
-    // to do 
+    const income = this.transactions.reduce((acumulator, currentValue) => {
+      return currentValue.type === 'outcome'
+        ? acumulator
+        : acumulator + currentValue.value;
+    }, 0);
+
+    const outcome = this.transactions.reduce((acumulator, currentValue) => {
+      return currentValue.type === 'income'
+        ? acumulator
+        : acumulator + currentValue.value;
+    }, 0);
+
+    const total = income - outcome;
+
+    return {
+      income,
+      outcome,
+      total,
+    };
   }
 
-  public create({title, value, type}: CreateTransactionDTO): Transaction {
+  public create({ title, value, type }: CreateTransactionDTO): Transaction {
     const newTransaction = new Transaction({
       title,
-      value, 
+      value,
       type,
-    })
+    });
     this.transactions.push(newTransaction);
+    this.getBalance();
     return newTransaction;
   }
 }
