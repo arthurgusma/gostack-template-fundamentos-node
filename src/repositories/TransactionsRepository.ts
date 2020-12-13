@@ -51,8 +51,11 @@ class TransactionsRepository {
       value,
       type,
     });
+    const totalBalance = this.getBalance();
+    if (totalBalance.total <= 0 && newTransaction.type === 'outcome') {
+      throw Error('Your balance is negative');
+    }
     this.transactions.push(newTransaction);
-    this.getBalance();
     return newTransaction;
   }
 }
