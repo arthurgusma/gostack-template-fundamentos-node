@@ -10,8 +10,8 @@ transactionRouter.get('/', (request, response) => {
   try {
     const allTrasactions = transactionsRepository.all();
     const balance = transactionsRepository.getBalance();
-    const returnValue = { allTrasactions, balance };
-    return response.json(returnValue);
+    // eslint-disable-next-line prettier/prettier
+    return response.json({ "transactions": allTrasactions, "balance": balance });
   } catch (err) {
     return response.status(400).json({ error: err.message });
   }
@@ -22,7 +22,7 @@ transactionRouter.post('/', (request, response) => {
     const { title, value, type } = request.body;
     const newTransaction = new CreateTransactionService(transactionsRepository);
     const transaction = newTransaction.execute({ title, value, type });
-    return response.json({ transaction });
+    return response.json(transaction);
   } catch (err) {
     return response.status(400).json({ error: err.message });
   }

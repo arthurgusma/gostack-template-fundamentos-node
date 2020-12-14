@@ -21,7 +21,6 @@ class CreateTransactionService {
       type,
     });
     return newTransaction;
-
   }
 }
 

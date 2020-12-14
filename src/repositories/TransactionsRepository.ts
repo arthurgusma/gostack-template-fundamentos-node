@@ -52,7 +52,7 @@ class TransactionsRepository {
       type,
     });
     const totalBalance = this.getBalance();
-    if (totalBalance.total <= 0 && newTransaction.type === 'outcome') {
+    if (type === 'outcome' && value > totalBalance.total) {
       throw Error('Your balance is negative');
     }
     this.transactions.push(newTransaction);
